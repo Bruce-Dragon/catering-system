@@ -39,3 +39,8 @@ sky:
     adminTtl: 7200000
     # 设置前端传递过来的令牌名称
     adminTokenName: token
+  alioss:
+    endpoint: ${sky.alioss.endpoint}
+    bucket-name: ${sky.alioss.bucket-name}
+    access-key-secret: ${sky.alioss.access-key-secret}
+    access-key-id: ${sky.alioss.access-key-id}
