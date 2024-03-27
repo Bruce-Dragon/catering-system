@@ -2,12 +2,16 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetMealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -24,6 +28,8 @@ public class DIshServiceImpl implements DishService {
     private DishMapper dishMapper;
     @Autowired
     private DishFlavorMapper dishFlavorMapper;
+    @Autowired
+    private SetMealDishMapper setMealDishMapper;
 
     /**
      * 菜品分页查询
@@ -54,8 +60,6 @@ public class DIshServiceImpl implements DishService {
                     dishFlavor.setDishId(id));
             dishFlavorMapper.insertBatch(flavors);
         }
-
-
     }
     /**
      * 根据菜品id批量删除
@@ -63,6 +67,26 @@ public class DIshServiceImpl implements DishService {
      */
     @Override
     public void deleteById(List<Long> id) {
-        dishMapper.delete(id);
+        //判断菜品状态是否是启售中
+        List<Dish> status = dishMapper.findStatus(id);
+        for (Dish dish : status) {
+            Integer status1 = dish.getStatus();
+                if (status1 == StatusConstant.ENABLE) {
+                    throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+                }
+        }
+        //判断菜品是否关联了套餐
+        List<Long> setMealId = setMealDishMapper.setMealId(id);
+            if (setMealId != null && setMealId.size() != 0){
+                throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+            }
+            //删除菜品数据
+            /*for (Long aLong : id) {
+                    dishMapper.delete(aLong);
+                    //删除菜品关联的口味
+                    dishFlavorMapper.deleteFlover(aLong);
+            }*/
+        dishMapper.deleteByIds(id);
+        dishFlavorMapper.deleteFloverByIds(id);
+        }
     }
-}

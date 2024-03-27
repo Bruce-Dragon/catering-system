@@ -49,12 +49,12 @@ public class DishController {
 
     /**
      * 根据菜品id批量删除
-     * @param id
+     * @param ids
      * @return
      */
-    @DeleteMapping("/{ids}")
-    public Result delete(@PathVariable List<Long> id){
-        dishService.deleteById(id);
+    @DeleteMapping
+    public Result delete(@RequestParam List<Long> ids){
+        dishService.deleteById(ids);
         return Result.success();
 
     }

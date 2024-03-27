@@ -8,4 +8,13 @@
             (#{fd.dishId},#{fd.name},#{fd.value})
         </foreach>
     </insert>
+    <delete id="deleteFlover">
+        delete from sky_take_out.dish_flavor where dish_id = #{id}
+    </delete>
+    <delete id="deleteFloverByIds">
+        delete from sky_take_out.dish_flavor where dish_id =
+        <foreach collection="id" item="ids" separator="," open="(" close=")">
+            #{ids}
+        </foreach>
+    </delete>
 </mapper>

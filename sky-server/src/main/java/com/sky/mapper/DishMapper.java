@@ -36,5 +36,14 @@ public interface DishMapper {
      * 根据菜品id批量删除
      * @param id
      */
-    void delete(List<Long> id);
+    void delete(Long id);
+
+    void deleteByIds(List<Long> id);
+
+    /**
+     * 根据菜品id查询菜品售卖状态
+     * @param id
+     * @return
+     */
+    List<Dish> findStatus(List<Long> id);
 }
