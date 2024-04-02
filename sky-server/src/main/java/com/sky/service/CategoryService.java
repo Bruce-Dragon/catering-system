@@ -42,4 +42,11 @@ public interface CategoryService {
      void delete(Integer id);
 
     List<Category> list(Integer type);
+
+     /**
+      * 根据分类类型查询分类
+      * @param type
+      * @return
+      */
+    List<CategoryDTO> categoryByType(Integer type);
 }

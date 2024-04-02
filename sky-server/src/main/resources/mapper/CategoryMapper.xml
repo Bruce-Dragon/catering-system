@@ -28,4 +28,11 @@
         </where>
         order by sort
     </select>
+    <select id="categoryList" resultType="com.sky.dto.CategoryDTO">
+        select *
+        from sky_take_out.category
+        <where>
+            <if test="type != null">type = #{type}</if>
+        </where>;
+    </select>
 </mapper>

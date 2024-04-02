@@ -2,6 +2,7 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
 import com.sky.enumeration.OperationType;
@@ -42,4 +43,11 @@ public interface CategoryMapper {
     void delete(Integer id);
     @Select("select * from sky_take_out.category where type=#{type}")
     List<Category> list(Integer type);
+    /**
+     * 根据分类类型查询分类
+     * @param
+     * @return
+     */
+
+    List<CategoryDTO> categoryList(Integer type);
 }

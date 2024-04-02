@@ -11,7 +11,7 @@ import com.sky.entity.Category;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.CategoryMapper;
 import com.sky.mapper.DishMapper;
-import com.sky.mapper.SetMealMapper;
+import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     private DishMapper dishMapper;
 
     @Autowired
-    private SetMealMapper setMealMapper;
+    private SetmealMapper setMealMapper;
 
     /**
      * 分类 分页查询
@@ -117,5 +117,15 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> list(Integer type) {
         List list = categoryMapper.list(type);
         return list;
+    }
+    /**
+     * 根据分类类型查询分类
+     * @param
+     * @return
+     */
+    @Override
+    public List<CategoryDTO> categoryByType(Integer type) {
+        List<CategoryDTO> category = categoryMapper.categoryList(type);
+        return category;
     }
 }

@@ -43,10 +43,9 @@ public class AutoFillAspect {
         LocalDateTime now = LocalDateTime.now();//公共数据准备
         Long currentId = BaseContext.getCurrentId();//公共数据准备
         if (operationType == OperationType.INSERT){
-            Method createTime = null;
             try {
                 //通过反射获取实体方法名称
-                createTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
+                Method createTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_TIME, LocalDateTime.class);
                 Method updateTime = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_TIME, LocalDateTime.class);
                 Method createUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_CREATE_USER, Long.class);
                 Method updateUser = entity.getClass().getDeclaredMethod(AutoFillConstant.SET_UPDATE_USER, Long.class);

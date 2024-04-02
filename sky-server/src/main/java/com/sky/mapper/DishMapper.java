@@ -36,8 +36,13 @@ public interface DishMapper {
      * 根据菜品id批量删除
      * @param id
      */
-    void delete(Long id);
+    //void delete(Long id);
 
+
+    /**
+     * 根据菜品id批量删除
+     * @param id
+     */
     void deleteByIds(List<Long> id);
 
     /**
@@ -46,4 +51,20 @@ public interface DishMapper {
      * @return
      */
     List<Dish> findStatus(List<Long> id);
+
+    /**
+     * 根据菜品id查询菜品数据用于回显
+     * @param id
+     */
+    Dish selectDishById(Long id);
+    @AutoFill(value = OperationType.UPDATE)
+    void updateDish(Dish dish);
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    @Select("select * from sky_take_out.dish where category_id = #{categoryId}")
+    List<DishVO> categoryId(Long categoryId);
 }
