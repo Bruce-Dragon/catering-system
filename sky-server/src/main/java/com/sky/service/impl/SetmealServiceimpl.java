@@ -86,7 +86,7 @@ public class SetmealServiceimpl implements SetmealService {
 
     @Override
     public SetmealVO invert(Long id) {
-       Setmeal setmeal = setMealMapper.insertSetmeal(id);
+       Setmeal setmeal = setMealMapper.invertSetmeal(id);
        SetmealVO setmealVO = new SetmealVO();
        BeanUtils.copyProperties(setmeal,setmealVO);
        List<SetmealDish> setmealDishes = setMealDishMapper.invertSetmealDish(id);

@@ -8,6 +8,7 @@ import com.sky.result.Result;
 import com.sky.service.SetmealService;
 import com.sky.vo.SetmealVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,9 +37,9 @@ public class SetmealController {
      * @return
      */
     @PostMapping
+    @CacheEvict(cacheNames = "setmealCache" , allEntries = true)
     public Result insertSetmeal(@RequestBody SetmealDTO setmealDTO){
         setmealService.insertSetmeal(setmealDTO);
-
         return Result.success();
     }
 
@@ -48,6 +49,7 @@ public class SetmealController {
      * @return
      */
     @PutMapping
+    @CacheEvict(cacheNames = "setmealCache" , allEntries = true)
     public Result updateSetmeal(@RequestBody SetmealDTO setmealDTO){
         setmealService.updateSetmeal(setmealDTO);
         return Result.success();

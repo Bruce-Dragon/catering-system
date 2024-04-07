@@ -34,5 +34,5 @@ public interface SetmealMapper {
 
     void update(Setmeal setmeal);
     @Select("select * from sky_take_out.setmeal where id = #{id}")
-    Setmeal insertSetmeal(Long id);
+    Setmeal invertSetmeal(Long id);
 }
