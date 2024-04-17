@@ -3,6 +3,7 @@ package com.sky.result;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,5 +19,6 @@ public class PageResult implements Serializable {
     private long total; //总记录数
 
     private List records; //当前页数据集合
+
 
 }
