@@ -1,13 +1,16 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
+import com.sky.vo.BusinessDataVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -40,4 +43,11 @@ public interface OrderMapper {
     Orders orderNumber(Long id);
 
     Page<Orders> select(OrdersPageQueryDTO ordersPageQueryDTO);
+
+
+    Integer orderCout(Map map);
+    @Select("select o.name , sum(o.number) number from sky_take_out.order_detail o , sky_take_out.orders od where o.order_id = od.id and od.status = #{status} and od.order_time > #{begin} and od.order_time < #{end} group by o.name order by number desc;")
+    List<GoodsSalesDTO> topsReport(Map map);
+
+    BusinessDataVO getBusinessDate(Map map);
 }
