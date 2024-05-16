@@ -1,0 +1,58 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: dev
+  main:
+    allow-circular-references: true
+  datasource:
+    druid:
+      driver-class-name: ${catering.datasource.driver-class-name}
+      url: jdbc:mysql://${catering.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+      username: ${catering.datasource.username}
+      password: ${catering.datasource.password}
+  redis:
+    host: ${catering.redis.host}
+    port: ${catering.redis.port}
+    password: ${catering.redis.password}
+    database: ${catering.redis.database}
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.catering.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+    #mybatis日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com:
+      catering:
+        mapper: debug
+        service: info
+        controller: info
+
+catering:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    adminSecretKey: itcast
+    # 设置jwt过期时间
+    adminTtl: 7200000
+    # 设置前端传递过来的令牌名称
+    adminTokenName: token
+    user-secret-key: itheima
+    user-token-name: authentication
+    user-ttl: 7200000
+  wechat:
+    appid: ${catering.wechat.appid}
+    secret: ${catering.wechat.secret}
+
+  alioss:
+    endpoint: ${catering.alioss.endpoint}
+    bucket-name: ${catering.alioss.bucket-name}
+    access-key-secret: ${catering.alioss.access-key-secret}
+    access-key-id: ${catering.alioss.access-key-id}
